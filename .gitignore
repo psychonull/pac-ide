@@ -1,0 +1,4 @@
+/node_modules
+/test/browserified_tests.js
+/wiki
+/dist
