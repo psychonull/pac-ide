@@ -1,0 +1,23 @@
+<div class="form-group">
+  {{#if name}}
+  <label id="label" class="col-sm-3 control-label">{{name}}</label>
+  {{/if}}
+
+  <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="input-group">
+          <div class="input-group-addon">X</div>
+          <input id="value-x" type="number" class="form-control" value="{{value.x}}">
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="input-group">
+          <div class="input-group-addon">Y</div>
+          <input id="value-y" type="number" class="form-control" value="{{value.y}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

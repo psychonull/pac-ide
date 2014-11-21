@@ -1,5 +1,5 @@
 
-var template = require("./templates/main.hbs");
+var template = require('./templates/scenes.hbs');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -18,7 +18,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-
+    
   },
 
   //--------------------------------------

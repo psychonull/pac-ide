@@ -1,50 +1,27 @@
 
-var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
-
-module.exports = Backbone.Marionette.LayoutView.extend({
+module.exports = Backbone.Marionette.ItemView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  template: template,
-
-  regions: {
-
-  },
-
-  events: {
-    'click #settings': 'showSettings'
-  },
-
-  modelEvents: {
-    'change:settings': 'render'
-  },
+  className: 'control',
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      name: this.model.get('settings').name
-    };
-  },
-
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
+  getValue: function(){
+    throw new Error('Control.getValues() NOT IMPLEMENTED');
+  },
+
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showSettings: function(){
-    ide.app.modals.show(new SettingsModal({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

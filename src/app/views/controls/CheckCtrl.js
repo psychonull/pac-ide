@@ -1,8 +1,8 @@
 
-var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
+var template = require('./templates/checkCtrl.hbs'),
+  Control = require('./Control');
 
-module.exports = Backbone.Marionette.LayoutView.extend({
+module.exports = Control.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
@@ -10,41 +10,26 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   template: template,
 
-  regions: {
-
-  },
-
-  events: {
-    'click #settings': 'showSettings'
-  },
-
-  modelEvents: {
-    'change:settings': 'render'
+  ui: {
+    'value': '#value'
   },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      name: this.model.get('settings').name
-    };
-  },
-
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
+  getValue: function(){
+    this.model.set('value', this.ui.value.is(':checked'));
+    return this.model.toJSON();
+  },
+
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showSettings: function(){
-    ide.app.modals.show(new SettingsModal({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

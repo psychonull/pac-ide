@@ -7,7 +7,10 @@
 
 var ModalRegion = require('./views/ModalRegion'),
   Header = require('./views/Header'),
-  Router = require('./Router');
+  Router = require('./Router'),
+
+  gameData = require('./data/game'),
+  Game = require('./models/Game');
 
 module.exports = function(){
 
@@ -15,14 +18,20 @@ module.exports = function(){
 
   function initRegions(){
     app.addRegions({
-      header: '.header',
-      main: '.content',
+      header: '#header',
+      content: '#content',
       modals: ModalRegion
     });
   }
 
-  function initialize(){
-    app.header.show(new Header());
+  function initGame(){
+    app.game = new Game(gameData);
+  }
+
+  function initHeader(){
+    this.header.show(new Header({
+      model: app.game
+    }));
   }
 
   function initRouter(){
@@ -37,7 +46,8 @@ module.exports = function(){
 
   app.addInitializer(initRegions);
   app.addInitializer(initRouter);
-  app.addInitializer(initialize);
+  app.addInitializer(initGame);
+  app.addInitializer(initHeader);
 
   window.ide.app = app;
 };

@@ -1,0 +1,13 @@
+<div class="form-group">
+  {{#if name}}
+  <label id="label" class="col-sm-3 control-label">{{name}}</label>
+  {{/if}}
+  <div class="col-sm-{{#if name}}6{{else}}12{{/if}}">
+    <select id="enum" class="form-control">
+      {{#each enum}}
+      <option value="{{.}}">{{.}}</option>
+      {{/each}}
+    </select>
+  </div>
+</div>
+<div id="options"></div>

@@ -1,8 +1,8 @@
 
-var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
+var template = require('./templates/controlList.hbs'),
+  Control = require('./Control');
 
-module.exports = Backbone.Marionette.LayoutView.extend({
+module.exports = Backbone.Marionette.CompositeView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
@@ -10,41 +10,34 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   template: template,
 
-  regions: {
-
-  },
-
-  events: {
-    'click #settings': 'showSettings'
-  },
-
-  modelEvents: {
-    'change:settings': 'render'
-  },
+  childView: Control,
+  childViewContainer: '.controls-ctn',
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      name: this.model.get('settings').name
-    };
-  },
-
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
+  getValue: function(){
+    var values = [];
+
+    this.children.each(function(view, i){
+      var val = view.getValue();
+      values.push(val.value);
+    });
+
+    return {
+      name: this.model.get('name'),
+      value: values
+    };
+  },
+
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showSettings: function(){
-    ide.app.modals.show(new SettingsModal({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

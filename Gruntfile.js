@@ -18,6 +18,9 @@ module.exports = function (grunt) {
 
       dist: "dist/",
       distcss: "dist/css/",
+
+      test: "test/",
+      specs: "test/specs/"
     },
 
     clean: {
@@ -44,7 +47,13 @@ module.exports = function (grunt) {
           '<%= paths.appcss %>**/*'
         ],
         tasks: ['less']
-      }
+      },
+      tests: {
+        files: [
+          '<%= paths.test %>browserified_tests.js'
+        ],
+        tasks: ['mocha_phantomjs']
+      },
     },
 
     browserify: {
@@ -59,7 +68,7 @@ module.exports = function (grunt) {
       },
       watchify: {
         files: {
-          '<%= paths.dist %><%= pkg.name %>.js': ['<%= paths.src %>index.js']
+          '<%= paths.dist %><%= pkg.name %>.js': ['<%= paths.src %>index.js'],
         },
         options: {
           extension: [ '.js', '.hbs' ],
@@ -67,7 +76,30 @@ module.exports = function (grunt) {
           debug: true,
           watch: true
         }
-      }
+      },
+      watchifyTests: {
+        files: {
+          '<%= paths.dist %><%= pkg.name %>.js': ['<%= paths.src %>index.js'],
+          '<%= paths.test %>browserified_tests.js': ['<%= paths.test %>suite.js']
+        },
+        options: {
+          extension: [ '.js', '.hbs' ],
+          transform: [ 'hbsfy' ],
+          debug: true,
+          watch: true
+        }
+      },
+      tests: {
+        src: [ '<%= paths.test %>suite.js' ],
+        dest: '<%= paths.test %>browserified_tests.js',
+        options: {
+          external: [ './<%= pkg.name %>.js' ],
+          extension: [ '.js', '.hbs' ],
+          transform: [ 'hbsfy' ],
+          // Embed source map for tests
+          debug: true
+        }
+      },
     },
 
     concat: {
@@ -133,6 +165,13 @@ module.exports = function (grunt) {
           port: 8002,
           base: './dist',
         }
+      },
+      test: {
+        options: {
+          port: 8002,
+          base: '.',
+          keepAlive: true
+        }
       }
     },
 
@@ -143,6 +182,15 @@ module.exports = function (grunt) {
           {expand: true, src: ['assets/**'], dest: 'dist/'},
         ],
       },
+    },
+
+    mocha_phantomjs: {
+      all: {
+        options: {
+          'reporter': 'spec',
+          urls: ["http://localhost:8002/test/index.html"]
+        }
+      }
     },
 
   });
@@ -156,6 +204,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks("grunt-mocha-phantomjs");
 
   grunt.registerTask("build", [
     "clean:before",
@@ -166,13 +215,24 @@ module.exports = function (grunt) {
     "copy"
   ]);
 
+  grunt.registerTask("site", [
+    "build",
+    "connect:server"
+  ]);
+
   grunt.registerTask("test", [
     "build",
-    "connect"
+    "browserify:tests",
+    "connect:test",
+    "mocha_phantomjs"
   ]);
 
   grunt.registerTask("default", "w");
-  grunt.registerTask("w", ["test", "browserify:watchify", "watch"]);
-  grunt.registerTask("dist", ["test", "uglify"]);
+
+  grunt.registerTask("wt", ["test", "browserify:watchifyTests", "watch:tests"]);
+
+  grunt.registerTask("w", ["site", "browserify:watchify", "watch"]);
+
+  grunt.registerTask("dist", ["site", "uglify"]);
 
 };

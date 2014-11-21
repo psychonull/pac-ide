@@ -1,4 +1,4 @@
 
-module.exports = function(pac){
-  require('./Initializer')(pac);
+module.exports = function(){
+  require('./Initializer')();
 };

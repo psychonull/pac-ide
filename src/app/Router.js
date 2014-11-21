@@ -4,7 +4,7 @@
 
 var
   // Views
-    Main = require('./views/Main');
+    Scenes = require('./views/Scenes');
 
   // Models
 
@@ -16,7 +16,9 @@ module.exports = Backbone.Marionette.AppRouter.extend({
   },
 
   index: function(){
-    ide.app.main.show(new Main());
+    ide.app.content.show(new Scenes({
+      model: ide.app.game
+    }));
   },
 
 });
