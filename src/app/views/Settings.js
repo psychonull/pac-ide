@@ -29,11 +29,10 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-    var settings = this.model.get('settings');
-    var components = this.model.get('components');
+    var data = this.model.toJSON();
 
-    this.gameOptions.show(Form.create(define.settings, settings.toJSON()));
-    this.components.show(Form.create(define.components, components.toJSON()));
+    this.gameOptions.show(Form.create(define.settings, data.settings));
+    this.components.show(Form.create(define.components, data.components));
   },
 
   //--------------------------------------
@@ -50,6 +49,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
     this.model.set('settings', new Backbone.Model(settings));
     this.model.set('components', new Backbone.Model(components));
+
+    this.model.save();
 
     this.destroy();
   }

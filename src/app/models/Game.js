@@ -18,13 +18,17 @@ var Game = module.exports = Backbone.Model.extend({
     return response;
   },
 
-  save: function(done){
+  save: function(done, replace){
     var path = ide.app.getStorage('gamepath').path;
 
-    idenode.builder.saveGameData(path, function(err){
+    idenode.builder.saveGameData(this.toJSON(), path, replace, function(err){
+      if (err){
+        window.alert('Error on saving game.');
+      }
+
       done && done(err);
     });
-  }
+  },
 
 }, {
 

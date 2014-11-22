@@ -32,7 +32,7 @@
 
   "assets": { },
 
-  "{{game.package}}": {
+  "package": {
 
     "actions": { },
     "animations": { },

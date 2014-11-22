@@ -14,7 +14,7 @@ module.exports = {
     done && done(null, gameData());
   },
 
-  saveGameData: function(data, gamePath, done){
+  saveGameData: function(data, gamePath, replace, done){
     // Fake it
     //done && done(new Error()); // to test error path
     done && done();
@@ -36,7 +36,7 @@ gameData = function() {
       renderer: {
         value: 'pac.PixiRenderer',
         options: {
-          size: new pac.Point(800, 600),
+          size: { x: 800, y: 600 },
           backgroundColor: '#000000',
           layers: [ 'background', 'front', '', '', '' ]
         }

@@ -26,12 +26,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      settings: this.model.get('settings').toJSON()
-    };
-  },
-
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------

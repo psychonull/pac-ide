@@ -3,6 +3,7 @@ var fs = require('fs-extra');
 var path = require('path');
 
 var hogan = require('hogan.js');
+var _ = require('lodash');
 var structure = require('./templates/structure');
 
 module.exports = {
@@ -30,7 +31,7 @@ module.exports = {
       }
     });
 
-    done && done();
+    done && done(null);
   },
 
   getGameData: function(gamePath, done){
@@ -45,21 +46,34 @@ module.exports = {
     done && done(null, gameData);
   },
 
-  saveGameData: function(data, gamePath, done){
+  saveGameData: function(data, gamePath, replace, done){
 
     try {
-
       var prev = fs.readJsonSync(gamePath + '/game.json');
-
       //TODO: history?
 
-      fs.writeJsonSync(gamePath + '/game.json', data);
+      var pkgPrev = prev.settings.package;
+      var pkgNew = data.settings.package;
+
+      if (replace){
+        fs.writeJsonSync(gamePath + '/game.json', data);
+      }
+      else {
+        _.merge(prev, data);
+        fs.writeJsonSync(gamePath + '/game.json', prev);
+      }
+
+      if (pkgPrev !== pkgNew){
+        var basePath = gamePath + '/src/';
+        fs.move(basePath + pkgPrev, basePath + pkgNew, done);
+        return;
+      }
 
     } catch(e){
       return done && done(e);
     }
 
-    done && done();
+    done && done(null);
   }
 
 };
