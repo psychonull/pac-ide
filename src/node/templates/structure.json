@@ -1,0 +1,25 @@
+{
+
+  "dirs": [
+    "src/{{game.package}}/actions",
+    "src/{{game.package}}/animations",
+    "src/{{game.package}}/gamestates",
+    "src/{{game.package}}/prefabs",
+    "src/{{game.package}}/scenes",
+
+    "assets/textures",
+    "assets/fonts",
+    "assets/audio",
+
+    "build/assets",
+    "build/css",
+    "build/js"
+  ],
+
+  "files": [
+    "game.json",
+    "src/game.js",
+    "build/index.html"
+  ]
+
+}

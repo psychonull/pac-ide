@@ -1,5 +1,6 @@
 
-var template = require('./templates/scenes.hbs');
+var template = require('./templates/layout.hbs'),
+  Scenes = require('./Scenes');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -7,10 +8,12 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
+  className: 'row clearfix',
   template: template,
 
   regions: {
-
+    //header: '.header',
+    scenesCtn: '.scenes-ctn'
   },
 
   //--------------------------------------
@@ -18,7 +21,15 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-    
+/*
+    this.header.show(new Header({
+      model: ide.app.game
+    }));
+*/
+    this.scenesCtn.show(new Scenes({
+      model: this.model,
+      collection: this.model.get('scenes')
+    }));
   },
 
   //--------------------------------------

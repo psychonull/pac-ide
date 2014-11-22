@@ -1,0 +1,45 @@
+{
+
+  "settings": {
+    "name": "{{game.name}}",
+    "package": "{{game.package}}",
+    "fps": 60
+  },
+
+  "components": {
+
+    "renderer": {
+      "value": "pac.PixiRenderer",
+      "options": {
+        "size": { "x": 800, "y": 600 },
+        "backgroundColor": "#000000",
+        "layers": [ "", "", "", "", "", "" ]
+      }
+    },
+
+    "input": {
+      "value": "pac.MouseInput",
+      "options": {
+        "enabled": true
+      }
+    },
+
+    "loader": {
+      "value": "pac.Loader"
+    }
+
+  },
+
+  "assets": { },
+
+  "{{game.package}}": {
+
+    "actions": { },
+    "animations": { },
+    "gamestates": { },
+    "prefabs": { },
+    "scenes": { }
+
+  }
+
+}

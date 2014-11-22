@@ -28,6 +28,7 @@ module.exports = {
     loader: {
       value: 'pac.Loader',
     }
+
   }
 
 };

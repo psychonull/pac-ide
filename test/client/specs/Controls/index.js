@@ -1,18 +1,18 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-var Form = require('../../../src/app/views/controls/Form');
+var Form = require('../../../../src/app/views/controls/Form');
 
-var TextCtrl = require('../../../src/app/views/controls/TextCtrl');
-var CheckCtrl = require('../../../src/app/views/controls/CheckCtrl');
-var NumberCtrl = require('../../../src/app/views/controls/NumberCtrl');
-var PointCtrl = require('../../../src/app/views/controls/PointCtrl');
-var EnumCtrl = require('../../../src/app/views/controls/EnumCtrl');
+var TextCtrl = require('../../../../src/app/views/controls/TextCtrl');
+var CheckCtrl = require('../../../../src/app/views/controls/CheckCtrl');
+var NumberCtrl = require('../../../../src/app/views/controls/NumberCtrl');
+var PointCtrl = require('../../../../src/app/views/controls/PointCtrl');
+var EnumCtrl = require('../../../../src/app/views/controls/EnumCtrl');
 
-var TextCtrlList = require('../../../src/app/views/controls/TextCtrlList');
-var CheckCtrlList = require('../../../src/app/views/controls/CheckCtrlList');
-var NumberCtrlList = require('../../../src/app/views/controls/NumberCtrlList');
-var PointCtrlList = require('../../../src/app/views/controls/PointCtrlList');
+var TextCtrlList = require('../../../../src/app/views/controls/TextCtrlList');
+var CheckCtrlList = require('../../../../src/app/views/controls/CheckCtrlList');
+var NumberCtrlList = require('../../../../src/app/views/controls/NumberCtrlList');
+var PointCtrlList = require('../../../../src/app/views/controls/PointCtrlList');
 
 describe('Controls', function(){
 

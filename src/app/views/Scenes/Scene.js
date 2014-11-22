@@ -1,35 +1,21 @@
 
-var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
+var template = require('./templates/scene.hbs');
 
-module.exports = Backbone.Marionette.LayoutView.extend({
+module.exports = Backbone.Marionette.ItemView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
+  tagName: 'li',
   template: template,
-
-  regions: {
-
-  },
-
-  events: {
-    'click #settings': 'showSettings'
-  },
-
-  modelEvents: {
-    'change:settings': 'render'
-  },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      settings: this.model.get('settings').toJSON()
-    };
+  onRender: function(){
+    
   },
 
   //--------------------------------------
@@ -39,12 +25,6 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showSettings: function(){
-    ide.app.modals.show(new SettingsModal({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

@@ -4,7 +4,8 @@
 
 var
   // Views
-    Scenes = require('./views/Scenes');
+    Scenes = require('./views/Scenes'),
+    CreateScene = require('./views/Scenes/Create');
 
   // Models
 

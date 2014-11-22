@@ -2,3 +2,5 @@
 /test/browserified_tests.js
 /wiki
 /dist
+/webkitbuilds
+/cache

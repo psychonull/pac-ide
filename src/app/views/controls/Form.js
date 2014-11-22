@@ -116,9 +116,10 @@ var Form = Backbone.Marionette.CollectionView.extend({
   // must do this way because of circular require()
   addOptions: function(view, child){
     var value = child.get('value'),
-      options = child.get('options');
+      options = child.get('options'),
+      opts = (value && value.options) || {};
 
-    view.setOptionsForm(Form.create(options, value.options));
+    view.setOptionsForm(Form.create(options, opts));
   }
 
 }, {

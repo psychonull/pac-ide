@@ -69,3 +69,35 @@ body {
 .modal-footer {
   border-top: 1px solid #74777B;
 }
+
+/**** SCENES *****/
+
+.scenes-ctn{
+
+  ul {
+    list-style: none;
+    padding: 10px 20px;
+
+    li {
+      cursor: pointer;
+      opacity: 0.5;
+      border-radius: 6px;
+
+      &.create {
+        width: 250px;
+        height: 150px;
+        background-color: rgb(152, 152, 152);
+        color: white;
+        text-align: center;
+        font-size: 60px;
+        line-height: 2.5;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+    }
+
+  }
+}

@@ -6,6 +6,7 @@
 /*jshint unused:false */
 
 var ModalRegion = require('./views/ModalRegion'),
+  ModalRegionFront = require('./views/ModalRegionFront'),
   Header = require('./views/Header'),
   Router = require('./Router'),
 
@@ -20,12 +21,13 @@ module.exports = function(){
     app.addRegions({
       header: '#header',
       content: '#content',
-      modals: ModalRegion
+      modals: ModalRegion,
+      modalsFront: ModalRegionFront
     });
   }
 
   function initGame(){
-    app.game = new Game(gameData);
+    app.game = new Game(gameData, { parse: true });
   }
 
   function initHeader(){
@@ -45,9 +47,9 @@ module.exports = function(){
   }
 
   app.addInitializer(initRegions);
-  app.addInitializer(initRouter);
   app.addInitializer(initGame);
   app.addInitializer(initHeader);
+  app.addInitializer(initRouter);
 
   window.ide.app = app;
 };

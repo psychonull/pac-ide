@@ -1,11 +1,9 @@
 
-var template = require('./templates/settings.hbs'),
-  Form = require('./controls/Form');
+var template = require('./templates/create.hbs'),
+  Form = require('../controls/Form'),
+  Scene = require('../../models/Scene');
 
-var define = {
-  settings: require('../define/settings'),
-  components: require('../define/components')
-};
+var sceneDef = require('../../define/scene');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -16,8 +14,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   regions: {
-    'gameOptions': '#game-options',
-    'components': '#components'
+    'form': '#form'
   },
 
   events: {
@@ -29,11 +26,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-    var settings = this.model.get('settings');
-    var components = this.model.get('components');
+    var components = this.model.get('components'),
+      gameSize = components.get('renderer').options.size;
 
-    this.gameOptions.show(Form.create(define.settings, settings.toJSON()));
-    this.components.show(Form.create(define.components, components.toJSON()));
+    sceneDef.size.default = gameSize;
+    this.form.show(Form.create(sceneDef));
   },
 
   //--------------------------------------
@@ -45,12 +42,11 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   saveChanges: function(){
-    var settings = this.gameOptions.currentView.getValue();
-    var components = this.components.currentView.getValue();
+    var newScene = this.form.currentView.getValue();
 
-    this.model.set('settings', new Backbone.Model(settings));
-    this.model.set('components', new Backbone.Model(components));
+    //TODO: check if the scene name exists
 
+    this.model.get('scenes').add(new Scene(newScene));
     this.destroy();
   }
 

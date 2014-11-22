@@ -19,17 +19,9 @@ module.exports = function (grunt) {
       dist: "dist/",
       distcss: "dist/css/",
 
-      test: "test/",
-      specs: "test/specs/"
-    },
-
-    clean: {
-      before: {
-        src: [
-          "<%= paths.dist %>*",
-          "!<%= paths.dist %>.gitignore"
-        ],
-      }
+      test: "test/client/",
+      specs: "test/client/specs/",
+      nodeTest: "test/node/",
     },
 
     watch: {
@@ -188,9 +180,30 @@ module.exports = function (grunt) {
       all: {
         options: {
           'reporter': 'spec',
-          urls: ["http://localhost:8002/test/index.html"]
+          urls: ["http://localhost:8002/test/client/index.html"]
         }
       }
+    },
+
+    mochacov: {
+      options: {
+        files: '<%= paths.nodeTest %>**/*.js',
+        ui: 'bdd',
+        colors: true
+      },
+      unit: {
+        options: {
+          reporter: 'spec'
+        }
+      },
+    },
+
+    nodewebkit: {
+      options: {
+          platforms: ['win','linux64'],
+          buildDir: './webkitbuilds', // Where the build version of my node-webkit app is saved
+      },
+      src: ['./dist/**/*'] // Your node-webkit app
     },
 
   });
@@ -205,9 +218,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks("grunt-mocha-phantomjs");
+  grunt.loadNpmTasks('grunt-node-webkit-builder');
+  grunt.loadNpmTasks('grunt-mocha-cov');
 
   grunt.registerTask("build", [
-    "clean:before",
     "jshint",
     "browserify:all",
     "concat",
@@ -225,6 +239,10 @@ module.exports = function (grunt) {
     "browserify:tests",
     "connect:test",
     "mocha_phantomjs"
+  ]);
+
+  grunt.registerTask("nt", [
+    "mochacov",
   ]);
 
   grunt.registerTask("default", "w");

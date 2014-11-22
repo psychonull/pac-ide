@@ -1,35 +1,26 @@
 
-var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
+var Scene = require('./Scene'),
+  Create = require('./Create');
 
-module.exports = Backbone.Marionette.LayoutView.extend({
+module.exports = Backbone.Marionette.CollectionView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  template: template,
-
-  regions: {
-
-  },
-
-  events: {
-    'click #settings': 'showSettings'
-  },
-
-  modelEvents: {
-    'change:settings': 'render'
-  },
+  tagName: 'ul',
+  childView: Scene,
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  serializeData: function(){
-    return {
-      settings: this.model.get('settings').toJSON()
-    };
+  onRender: function(){
+    
+
+    var addButton = $('<li>').addClass('create').text('+');
+    this.$el.append(addButton);
+    addButton.on('click', this.showCreateModal.bind(this));
   },
 
   //--------------------------------------
@@ -40,8 +31,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //+ EVENT HANDLERS
   //--------------------------------------
 
-  showSettings: function(){
-    ide.app.modals.show(new SettingsModal({
+  showCreateModal: function(){
+    ide.app.modals.show(new Create({
       model: this.model
     }));
   }
