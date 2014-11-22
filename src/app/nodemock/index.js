@@ -1,5 +1,6 @@
 
-// NodeJS modules for Node-Webkit
+
+// MOCK NodeJS modules for Browser develop
 
 module.exports = {
   builder: require('./builder'),

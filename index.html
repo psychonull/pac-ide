@@ -32,6 +32,17 @@
       </div>
     </div>
 
+    <script src="./vendorwebkit.js"></script>
+
+    <script>
+      try {
+        // in case is debuging on a browser
+        window.idenode = require('./src/node');
+      } catch (e){
+        console.error(e);
+      }
+    </script>
+
     <script src="./pacide.js"></script>
   </body>
 </html>

@@ -42,6 +42,8 @@
     "Backbone": true,
     "_": true,
     "handlebars": true,
-    "ide": true
+    "ide": true,
+    "idenode": true,
+    "LZADialog": true
   }
 }

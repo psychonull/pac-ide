@@ -7,11 +7,7 @@
 
 var ModalRegion = require('./views/ModalRegion'),
   ModalRegionFront = require('./views/ModalRegionFront'),
-  Header = require('./views/Header'),
-  Router = require('./Router'),
-
-  gameData = require('./data/game'),
-  Game = require('./models/Game');
+  Router = require('./Router');
 
 module.exports = function(){
 
@@ -26,14 +22,12 @@ module.exports = function(){
     });
   }
 
-  function initGame(){
-    app.game = new Game(gameData, { parse: true });
-  }
+  function initMain(){
+    var gamepath = app.getStorage('gamepath');
 
-  function initHeader(){
-    this.header.show(new Header({
-      model: app.game
-    }));
+    if (gamepath && gamepath.path){
+      app.router.navigate('game', { trigger: true });
+    }
   }
 
   function initRouter(){
@@ -46,10 +40,28 @@ module.exports = function(){
     Backbone.history.start();
   }
 
+  function initStorage(){
+
+    app.setStorage = function(key, value){
+      window.localStorage.setItem(key, JSON.stringify(value));
+    };
+
+    app.getStorage = function(key){
+      var value = window.localStorage.getItem(key);
+      if (value){
+        return JSON.parse(value);
+      }
+    };
+
+    app.clearStorage = function(key){
+      window.localStorage.removeItem(key);
+    };
+  }
+
+  app.addInitializer(initStorage);
   app.addInitializer(initRegions);
-  app.addInitializer(initGame);
-  app.addInitializer(initHeader);
   app.addInitializer(initRouter);
+  app.addInitializer(initMain);
 
   window.ide.app = app;
 };

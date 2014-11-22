@@ -19,9 +19,13 @@ module.exports = function (grunt) {
       dist: "dist/",
       distcss: "dist/css/",
 
+      vendorwebkit: "src/vendor/webkit/",
+      vendorwebkitName: "vendorwebkit.js",
+
       test: "test/client/",
       specs: "test/client/specs/",
       nodeTest: "test/node/",
+
     },
 
     watch: {
@@ -106,6 +110,11 @@ module.exports = function (grunt) {
           '<%= paths.dist %><%= pkg.name %>.js': [ '<%= paths.dist %><%= pkg.name %>.js' ]
         }
       },
+      vendorwebkit: {
+        files: {
+          '<%= paths.dist %><%= paths.vendorwebkitName %>': [ '<%= paths.vendorwebkit %>**/*' ]
+        }
+      },
       styles: {
         src: [
             '<%= paths.vendorcss %>bootstrap.min.css'
@@ -132,7 +141,10 @@ module.exports = function (grunt) {
     jshint: {
       all: {
         files: {
-          src: ["<%= paths.src %>**/*.js"]
+          src: [
+            "<%= paths.src %>**/*.js",
+            "!<%= paths.src %>vendor/**/*.js"
+          ]
         },
         options: {
           jshintrc: '.jshintrc'
@@ -171,7 +183,7 @@ module.exports = function (grunt) {
       main: {
         files: [
           {expand: true, src: ['index.html'], dest: 'dist/'},
-          {expand: true, src: ['assets/**'], dest: 'dist/'},
+          {expand: true, src: ['src/node/**'], dest: 'dist/'},
         ],
       },
     },
