@@ -7,6 +7,9 @@ var Control = require('./Control'),
   CheckCtrl = require('./CheckCtrl'),
   PointCtrl = require('./PointCtrl'),
   EnumCtrl = require('./EnumCtrl'),
+  SizeCtrl = require('./SizeCtrl'),
+  ColorCtrl = require('./ColorCtrl'),
+  TextureCtrl = require('./TextureCtrl'),
 
   // List Control Types
   TextCtrlList = require('./TextCtrlList'),
@@ -96,11 +99,15 @@ var Form = Backbone.Marionette.CollectionView.extend({
   },
 
   getItemViewType: function(type){
+    /*jshint maxcomplexity:10 */
     switch(type){
       case String: return TextCtrl;
       case Number: return NumberCtrl;
       case Boolean: return CheckCtrl;
       case pac.Point: return PointCtrl;
+      case pac.Size: return SizeCtrl;
+      case pac.Color: return ColorCtrl;
+      case pac.Texture: return TextureCtrl;
     }
   },
 

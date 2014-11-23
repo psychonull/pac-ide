@@ -1,6 +1,6 @@
 
-var Scene = require('./Scene'),
-  Create = require('./Create');
+var Texture = require('./Texture')/*,
+  Create = require('./Create')*/;
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
@@ -9,7 +9,7 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
 
   tagName: 'ul',
-  childView: Scene,
+  childView: Texture,
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
@@ -30,9 +30,11 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
 
   showCreateModal: function(){
+    /*
     ide.app.modals.show(new Create({
       model: this.model
     }));
+    */
   }
 
   //--------------------------------------

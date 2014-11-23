@@ -1,6 +1,8 @@
 
 var template = require('./templates/layout.hbs'),
-  Scenes = require('./Scenes');
+  Scenes = require('./Scenes'),
+  SceneTypes = require('../../models/SceneTypes'),
+  SceneTypesList = require('./SceneTypes');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -12,8 +14,8 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   regions: {
-    //header: '.header',
-    scenesCtn: '.scenes-ctn'
+    scenesCtn: '.scenes-ctn',
+    sceneTypes: '.scenes-types-ctn div'
   },
 
   //--------------------------------------
@@ -21,15 +23,20 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
-/*
-    this.header.show(new Header({
-      model: ide.app.game
-    }));
-*/
+
     this.scenesCtn.show(new Scenes({
       model: this.model,
       collection: this.model.get('scenes')
     }));
+
+    var types = new SceneTypes();
+
+    this.sceneTypes.show(new SceneTypesList({
+      model: this.model,
+      collection: types
+    }));
+
+    types.load();
   },
 
   //--------------------------------------

@@ -1,0 +1,8 @@
+<div class="form-group">
+  {{#if name}}
+  <label id="label" class="col-sm-3 control-label">{{name}}</label>
+  {{/if}}
+  <div class="col-sm-{{#if name}}6{{else}}12{{/if}}">
+    <input id="value" type="text" class="form-control" value="{{value}}">
+  </div>
+</div>

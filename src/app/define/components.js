@@ -5,8 +5,8 @@ module.exports = {
     enum: [ 'pac.NativeRenderer', 'pac.PixiRenderer' ],
     default: 'pac.PixiRenderer',
     options: {
-      size: { type: pac.Point, default: new pac.Point(800, 600) },
-      backgroundColor: String,
+      size: { type: pac.Size, default: { width: 800, height: 600 } },
+      backgroundColor: pac.Color,
       layers: [ String ]
     },
   },

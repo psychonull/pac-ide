@@ -8,6 +8,9 @@ var CheckCtrl = require('../../../../src/app/views/controls/CheckCtrl');
 var NumberCtrl = require('../../../../src/app/views/controls/NumberCtrl');
 var PointCtrl = require('../../../../src/app/views/controls/PointCtrl');
 var EnumCtrl = require('../../../../src/app/views/controls/EnumCtrl');
+var SizeCtrl = require('../../../../src/app/views/controls/SizeCtrl');
+var ColorCtrl = require('../../../../src/app/views/controls/ColorCtrl');
+var TextureCtrl = require('../../../../src/app/views/controls/TextureCtrl');
 
 var TextCtrlList = require('../../../../src/app/views/controls/TextCtrlList');
 var CheckCtrlList = require('../../../../src/app/views/controls/CheckCtrlList');
@@ -24,35 +27,54 @@ describe('Controls', function(){
         name: String,
         active: Boolean,
         fps: Number,
-        apoint: pac.Point
+        apoint: pac.Point,
+        asize: pac.Size,
+        acolor: pac.Color,
+        atexture: pac.Texture
       };
 
       var values = {
         name: 'MyGame',
         active: true,
         fps: 30,
-        apoint: new pac.Point(10, 20)
+        apoint: { x: 50, y: 80 },
+        asize: { width: 200, height: 200 },
+        acolor: '#00ff00',
+        atexture: 'sometexture'
       };
 
       var view = Form.create(def, values);
       expect(view).to.be.an.instanceof(Form);
 
       view.render();
-      expect(view.children.length).to.be.equal(4);
+      expect(view.children.length).to.be.equal(7);
 
       expect(view.children.findByIndex(0)).to.be.an.instanceof(TextCtrl);
       expect(view.children.findByIndex(1)).to.be.an.instanceof(CheckCtrl);
       expect(view.children.findByIndex(2)).to.be.an.instanceof(NumberCtrl);
       expect(view.children.findByIndex(3)).to.be.an.instanceof(PointCtrl);
+      expect(view.children.findByIndex(4)).to.be.an.instanceof(SizeCtrl);
+      expect(view.children.findByIndex(5)).to.be.an.instanceof(ColorCtrl);
+      expect(view.children.findByIndex(6)).to.be.an.instanceof(TextureCtrl);
 
       var viewValues = view.getValue();
       expect(viewValues.name).to.be.equal(values.name);
       expect(viewValues.active).to.be.equal(values.active);
       expect(viewValues.fps).to.be.equal(values.fps);
 
-      expect(viewValues.apoint).to.be.an.instanceof(pac.Point);
+      expect(viewValues.apoint).to.be.an('object');
       expect(viewValues.apoint.x).to.be.equal(values.apoint.x);
       expect(viewValues.apoint.y).to.be.equal(values.apoint.y);
+
+      expect(viewValues.asize).to.be.an('object');
+      expect(viewValues.asize.width).to.be.equal(values.asize.width);
+      expect(viewValues.asize.height).to.be.equal(values.asize.height);
+
+      expect(viewValues.acolor).to.be.an('string');
+      expect(viewValues.acolor).to.be.equal(values.acolor);
+
+      expect(viewValues.atexture).to.be.an('string');
+      expect(viewValues.atexture).to.be.equal(values.atexture);
 
     });
 

@@ -1,24 +1,21 @@
 
-var Scene = require('./Scene'),
-  Create = require('./Create');
+var template = require('./templates/texture.hbs');
 
-module.exports = Backbone.Marionette.CollectionView.extend({
+module.exports = Backbone.Marionette.ItemView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  tagName: 'ul',
-  childView: Scene,
+  tagName: 'li',
+  template: template,
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
   onRender: function(){
-    var addButton = $('<li>').addClass('create').text('+');
-    this.$el.append(addButton);
-    addButton.on('click', this.showCreateModal.bind(this));
+
   },
 
   //--------------------------------------
@@ -28,12 +25,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showCreateModal: function(){
-    ide.app.modals.show(new Create({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

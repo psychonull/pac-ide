@@ -26,7 +26,7 @@ module.exports = function(){
     var gamepath = app.getStorage('gamepath');
 
     if (gamepath && gamepath.path){
-      app.router.navigate('game', { trigger: true });
+      app.router.navigate('scenes', { trigger: true });
     }
   }
 

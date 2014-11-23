@@ -11,7 +11,7 @@
     "renderer": {
       "value": "pac.PixiRenderer",
       "options": {
-        "size": { "x": 800, "y": 600 },
+        "size": { "width": 800, "height": 600 },
         "backgroundColor": "#000000",
         "layers": [ "", "", "", "", "", "" ]
       }
@@ -30,7 +30,9 @@
 
   },
 
-  "assets": { },
+  "assets": {
+    "textures": { }
+  },
 
   "package": {
 

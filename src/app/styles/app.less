@@ -4,6 +4,33 @@ body {
   /*background-color: blue;*/
 }
 
+.navbar-right {
+  margin-right: 0;
+}
+
+.navbar-second {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #43494F;
+  background-color: #2F3237;
+
+  min-height:32px !important;
+
+  li {
+
+    a {
+      padding-top:10px !important;
+      padding-bottom:10px !important;
+    }
+  }
+}
+
+.navbar {
+  a {
+    cursor: pointer;
+  }
+}
+
 .control {
   border-bottom: 1px solid #474747;
   padding-top: 15px;
@@ -11,7 +38,7 @@ body {
   #options form {
     background-color: #515151;
     padding: 20px;
-    padding-bottom: 0;
+    padding-bottom: 5px;
     border-radius: 6px;
 
     .control {
@@ -57,7 +84,7 @@ body {
 
   .radio,
   .checkbox {
-    min-height: 40px;
+    min-height: 20px;
     padding-top: 0;
   }
 }
@@ -99,5 +126,48 @@ body {
 
     }
 
+  }
+}
+
+.scenes-types-ctn {
+  position: fixed;
+  right: 0;
+  padding: 5px;
+  background: rgb(63, 66, 69);
+  height: auto;
+  height: 100%;
+}
+
+/**** ASSETS *****/
+
+.assets-ctn {
+
+  .content {
+    ul {
+      list-style: none;
+      padding: 10px 20px;
+
+      li {
+        cursor: pointer;
+        opacity: 0.5;
+        border-radius: 6px;
+
+        &.create {
+          width: 100px;
+          height: 100px;
+          background-color: rgb(152, 152, 152);
+          color: white;
+          text-align: center;
+          font-size: 60px;
+          line-height: 1.7;
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+
+      }
+
+    }
   }
 }

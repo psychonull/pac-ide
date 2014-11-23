@@ -1,6 +1,7 @@
 
 var template = require('./templates/create.hbs'),
   Form = require('../controls/Form'),
+  SceneTypes = require('../../models/SceneTypes'),
   Scene = require('../../models/Scene');
 
 var sceneDef = require('../../define/scene');
@@ -14,11 +15,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   template: template,
 
   regions: {
-    'form': '#form'
+    'types': '#types',
+    'options': '#options'
   },
 
   events: {
-    'click #save': 'saveChanges'
+    'click #save': 'saveChanges',
+    'change #types select': 'createOptions'
   },
 
   //--------------------------------------
@@ -26,11 +29,27 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   onRender: function(){
+    this.sceneTypes = new SceneTypes();
+    this.sceneTypes.load();
+
+    this.types.show(Form.create({
+      scene: { enum: this.sceneTypes.getEnum() }
+    }));
+
+    this.createOptions();
+  },
+
+  createOptions: function(){
     var components = this.model.get('components'),
       gameSize = components.get('renderer').options.size;
 
-    sceneDef.size.default = gameSize;
-    this.form.show(Form.create(sceneDef));
+    var selected = $('#types select', this.$el).val();
+    var opts = this.sceneTypes.findWhere({ type: selected }).toJSON();
+
+    opts.size.default = gameSize;
+    delete opts.type;
+
+    this.options.show(Form.create(opts));
   },
 
   //--------------------------------------

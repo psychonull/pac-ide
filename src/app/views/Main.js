@@ -31,7 +31,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
     LZADialog.selectDir({ nwworkingdir: '/home/user' }, function(file){
       ide.app.setStorage('gamepath', { path: file.path });
-      ide.app.router.navigate('game', { trigger: true });
+      ide.app.router.navigate('scenes', { trigger: true });
     });
 
   },

@@ -1,39 +1,43 @@
 
-var Scene = require('./Scene'),
-  Create = require('./Create');
+var template = require('./templates/colorCtrl.hbs'),
+  Control = require('./Control');
 
-module.exports = Backbone.Marionette.CollectionView.extend({
+module.exports = Control.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  tagName: 'ul',
-  childView: Scene,
+  template: template,
+
+  ui: {
+    'value': '#value'
+  },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  onRender: function(){
-    var addButton = $('<li>').addClass('create').text('+');
-    this.$el.append(addButton);
-    addButton.on('click', this.showCreateModal.bind(this));
-  },
-
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
+  getValue: function(){
+    var val = this.ui.value.val();
+
+    if (val.length > 0){
+      this.model.set('value', val);
+    }
+    else if (!this.model.get('default')){
+      this.model.unset('value');
+    }
+
+    return this.model.toJSON();
+  },
+
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showCreateModal: function(){
-    ide.app.modals.show(new Create({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

@@ -2,8 +2,7 @@
 module.exports = {
 
   name: String,
-  size: { type: pac.Point },
-  //texture: pac.Texture,
-  texture: String,
+  size: { type: pac.Size },
+  texture: pac.Texture,
 
 };

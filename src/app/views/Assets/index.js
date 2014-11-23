@@ -1,24 +1,32 @@
 
-var Scene = require('./Scene'),
-  Create = require('./Create');
+var template = require('./templates/layout.hbs'),
+  Textures = require('./Textures');
 
-module.exports = Backbone.Marionette.CollectionView.extend({
+module.exports = Backbone.Marionette.LayoutView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  tagName: 'ul',
-  childView: Scene,
+  className: 'row clearfix assets-ctn',
+  template: template,
+
+  regions: {
+    content: '.content'
+  },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
   onRender: function(){
-    var addButton = $('<li>').addClass('create').text('+');
-    this.$el.append(addButton);
-    addButton.on('click', this.showCreateModal.bind(this));
+    var assets = this.model.get('assets');
+
+    this.content.show(new Textures({
+      model: this.model,
+      collection: new Backbone.Collection() //assets.get('textures')
+    }));
+
   },
 
   //--------------------------------------
@@ -28,12 +36,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showCreateModal: function(){
-    ide.app.modals.show(new Create({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS

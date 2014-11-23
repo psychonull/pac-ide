@@ -1,6 +1,7 @@
 
 var template = require('./templates/header.hbs'),
-  SettingsModal = require('./Settings');
+  SettingsModal = require('./Settings'),
+  AssetsModal = require('./Assets');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
@@ -14,8 +15,17 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 
   },
 
+  ui: {
+    'settings': '#settings',
+    'scenes': '#scenes',
+    'assets': '#assets',
+    'tabOptions': '.tab-option'
+  },
+
   events: {
-    'click #settings': 'showSettings'
+    'click @ui.settings': 'showSettings',
+    'click @ui.assets': 'showAssets',
+    'click @ui.scenes': 'showScenes'
   },
 
   modelEvents: {
@@ -26,9 +36,24 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
+  initialize: function(){
+    ide.app.router.on('route', this.setCurrentActive.bind(this));
+  },
+
+  onRender: function(){
+    this.setCurrentActive(ide.app.getCurrentRoute());
+  },
+
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
+
+  setCurrentActive: function(route, params) {
+    if (this.ui[route]){
+      this.ui.tabOptions.removeClass('active');
+      this.ui[route].parent('li').addClass('active');
+    }
+  },
 
   //--------------------------------------
   //+ EVENT HANDLERS
@@ -38,6 +63,14 @@ module.exports = Backbone.Marionette.LayoutView.extend({
     ide.app.modals.show(new SettingsModal({
       model: this.model
     }));
+  },
+
+  showScenes: function(){
+    ide.app.router.navigate('scenes', { trigger: true });
+  },
+
+  showAssets: function(){
+    ide.app.router.navigate('assets', { trigger: true });
   }
 
   //--------------------------------------

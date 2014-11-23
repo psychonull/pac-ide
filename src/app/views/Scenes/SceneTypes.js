@@ -1,6 +1,5 @@
 
-var Scene = require('./Scene'),
-  Create = require('./Create');
+var SceneType = require('./SceneType');
 
 module.exports = Backbone.Marionette.CollectionView.extend({
 
@@ -9,17 +8,12 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
 
   tagName: 'ul',
-  childView: Scene,
+  className: 'list-group',
+  childView: SceneType,
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
-
-  onRender: function(){
-    var addButton = $('<li>').addClass('create').text('+');
-    this.$el.append(addButton);
-    addButton.on('click', this.showCreateModal.bind(this));
-  },
 
   //--------------------------------------
   //+ PUBLIC METHODS / GETTERS / SETTERS
@@ -28,12 +22,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-
-  showCreateModal: function(){
-    ide.app.modals.show(new Create({
-      model: this.model
-    }));
-  }
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
