@@ -80,21 +80,40 @@ gameData = function() {
         height: 60
       },
     }],
-
-    scenes: {
-      'myscene': {
-        type: 'scenes.ExampleSceneA',
-        options: {
-          name: 'myscene',
-          size: { width: 800, height: 600 },
-          texture: 'school',
-        },
-        objects: [{
-
-        }]
-      }
-    },
 */
+
+    scenes: [{
+      type: 'ExampleSceneA',
+      options: {
+        name: 'myscene',
+        size: { width: 800, height: 600 },
+        texture: 'school',
+      },
+      objects: [{
+
+      }]
+    }, {
+      type: 'ExampleSceneB',
+      options: {
+        name: 'myscene2',
+        size: { width: 800, height: 600 },
+        texture: 'school',
+      },
+      objects: [{
+
+      }]
+    }, {
+      type: 'ExampleSceneA',
+      options: {
+        name: 'myscene3',
+        size: { width: 800, height: 600 },
+        texture: 'school',
+      },
+      objects: [{
+
+      }]
+    }],
+
     package: {
 
       scenes: {

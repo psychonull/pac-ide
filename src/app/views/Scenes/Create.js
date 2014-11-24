@@ -61,11 +61,16 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   saveChanges: function(){
-    var newScene = this.form.currentView.getValue();
+    var type = this.types.currentView.getValue();
+    var sceneOpts = this.options.currentView.getValue();
 
     //TODO: check if the scene name exists
 
-    this.model.get('scenes').add(new Scene(newScene));
+    this.model.get('scenes').add(new Scene({
+      type: type.scene,
+      options: sceneOpts
+    }));
+
     this.destroy();
   }
 

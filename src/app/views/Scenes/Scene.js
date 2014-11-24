@@ -10,12 +10,17 @@ module.exports = Backbone.Marionette.ItemView.extend({
   tagName: 'li',
   template: template,
 
+  modelEvents: {
+    'change': 'render'
+  },
+
+
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
   onRender: function(){
-    
+
   },
 
   //--------------------------------------

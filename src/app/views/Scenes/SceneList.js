@@ -1,26 +1,36 @@
 
-var Scene = require('./Scene')/*,
-  Create = require('./Create')*/;
+var template = require('./templates/sceneList.hbs'),
+  SceneItem = require('./SceneItem'),
+  Create = require('./Create');
 
-module.exports = Backbone.Marionette.CollectionView.extend({
+module.exports = Backbone.Marionette.CompositeView.extend({
 
   //--------------------------------------
   //+ PUBLIC PROPERTIES / CONSTANTS
   //--------------------------------------
 
-  tagName: 'ul',
-  childView: Scene,
+  template: template,
+  childView: SceneItem,
+  childViewContainer: '.scene-list',
+
+  events: {
+    'click .new-scene': 'showNewScene'
+  },
+
+  childViewOptions: function(model, index) {
+    return {
+      gameSize: this.gameSize,
+      sceneTypes: this.sceneTypes
+    };
+  },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
 
-  onRender: function(){
-    /*
-    var addButton = $('<li>').addClass('create').text('+');
-    this.$el.append(addButton);
-    addButton.on('click', this.showCreateModal.bind(this));
-    */
+  initialize: function(options){
+    this.gameSize = options && options.gameSize;
+    this.sceneTypes = options && options.sceneTypes;
   },
 
   //--------------------------------------
@@ -30,13 +40,13 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
-/*
-  showCreateModal: function(){
+
+  showNewScene: function(){
     ide.app.modals.show(new Create({
       model: this.model
     }));
   }
-*/
+
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------

@@ -25,10 +25,19 @@ body {
   }
 }
 
-.navbar {
-  a {
-    cursor: pointer;
-  }
+a {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-image: -webkit-linear-gradient(#5BABE4, #0368B3 60%, #15557C);
+  background-image: -o-linear-gradient(#5BABE4, #0368B3 60%, #15557C);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5BABE4), color-stop(60%, #0368B3), to(#15557C));
+  background-image: linear-gradient(#5BABE4, #0368B3 60%, #15557C);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5BABE4', endColorstr='#ff15557C', GradientType=0);
+  -webkit-filter: none;
+  filter: none;
 }
 
 .control {
@@ -97,18 +106,44 @@ body {
   border-top: 1px solid #74777B;
 }
 
+.no-lpad {
+  padding-left: 0;
+}
+
+.no-rpad {
+  padding-right: 0;
+}
+
 /**** SCENES *****/
 
 .scenes-ctn{
 
+  overflow: auto;
+  position: fixed;
+  height: auto;
+  height: 92%;
+
   ul {
     list-style: none;
-    padding: 10px 20px;
+    padding: 5px;
 
     li {
       cursor: pointer;
       opacity: 0.5;
       border-radius: 6px;
+
+      background-color: rgb(152, 152, 152);
+      color: white;
+
+      width: 250px;
+      height: 150px;
+
+      float: left;
+      margin: 10px 10px;
+
+      text-align: center;
+      font-size: 18px;
+      line-height: 8;
 
       &.create {
         width: 250px;
@@ -129,13 +164,49 @@ body {
   }
 }
 
-.scenes-types-ctn {
+.scenes-right-ctn {
   position: fixed;
   right: 0;
   padding: 5px;
   background: rgb(63, 66, 69);
   height: auto;
-  height: 100%;
+  height: 92%;
+
+  padding: 0;
+  border-left: 2px solid gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .navbar-second {
+    margin-bottom: 0;
+  }
+
+  .new-scene {
+    text-align: center;
+    display: block;
+    padding: 5px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .panel-group .panel+.panel {
+    margin-top: 0;
+  }
+
+  .panel {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #414C5A;
+    border-top: 1px solid #3F454D;
+
+    .panel-body {
+      padding: 0;
+    }
+
+    .panel-footer {
+      background-color: #2e3338;
+    }
+  }
 }
 
 /**** ASSETS *****/
