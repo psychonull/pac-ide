@@ -1,6 +1,6 @@
 
 module.exports = {
 
-  browser: true
+  browser: false
 
 };

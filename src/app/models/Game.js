@@ -52,7 +52,15 @@ var Game = module.exports = Backbone.Model.extend({
         return done && done(err);
       }
 
-      done && done(null, new Game(data, { parse: true }));
+      var game;
+      try {
+        game = new Game(data, { parse: true });
+      }
+      catch (e){
+        return done && done(e);
+      }
+
+      done && done(null, game);
     });
   }
 

@@ -1,7 +1,8 @@
 
 var template = require('./templates/sceneList.hbs'),
   SceneItem = require('./SceneItem'),
-  Create = require('./Create');
+  Create = require('./Create'),
+  SceneTypes = require('../../models/SceneTypes');
 
 module.exports = Backbone.Marionette.CompositeView.extend({
 
@@ -13,8 +14,12 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   childView: SceneItem,
   childViewContainer: '.scene-list',
 
+  ui:{
+    'linkScene': '.new-scene'
+  },
+
   events: {
-    'click .new-scene': 'showNewScene'
+    'click @ui.linkScene': 'showNewScene',
   },
 
   childViewOptions: function(model, index) {
@@ -29,8 +34,21 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   //--------------------------------------
 
   initialize: function(options){
-    this.gameSize = options && options.gameSize;
-    this.sceneTypes = options && options.sceneTypes;
+    var components = this.model.get('components'),
+      gameSize = components.get('renderer').options.size;
+
+    this.gameSize = gameSize;
+
+    var sceneTypes = new SceneTypes();
+    sceneTypes.load();
+
+    this.sceneTypes = sceneTypes;
+  },
+
+  onRender: function(){
+    if (this.sceneTypes.length === 0){
+      this.ui.linkScene.text('No Scene Types found! (reload)');
+    }
   },
 
   //--------------------------------------
@@ -42,9 +60,14 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   //--------------------------------------
 
   showNewScene: function(){
-    ide.app.modals.show(new Create({
-      model: this.model
-    }));
+    if (this.sceneTypes.length > 0){
+      ide.app.modals.show(new Create({
+        model: this.model
+      }));
+    }
+    else {
+      window.location.reload();
+    }
   }
 
   //--------------------------------------

@@ -49,7 +49,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
   //--------------------------------------
 
   setCurrentActive: function(route, params) {
-    if (this.ui[route]){
+    if (typeof this.ui[route] === 'object'){
       this.ui.tabOptions.removeClass('active');
       this.ui[route].parent('li').addClass('active');
     }

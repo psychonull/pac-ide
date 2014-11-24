@@ -81,7 +81,7 @@ gameData = function() {
       },
     }],
 */
-
+/*
     scenes: [{
       type: 'ExampleSceneA',
       options: {
@@ -113,10 +113,11 @@ gameData = function() {
 
       }]
     }],
-
+*/
     package: {
 
       scenes: {
+        /*
         'ExampleSceneA': {
           name: String,
           size: { type: pac.Size },
@@ -130,6 +131,7 @@ gameData = function() {
           myoptionB: Boolean,
           testJ: String
         }
+        */
       },
 /*
       prefabs: {

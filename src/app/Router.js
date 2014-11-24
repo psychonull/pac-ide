@@ -30,6 +30,10 @@ module.exports = Backbone.Marionette.AppRouter.extend({
     var app = ide.app;
 
     if (app.game){
+      app.header.show(new Header({
+        model: app.game
+      }));
+
       done && done();
       return;
     }

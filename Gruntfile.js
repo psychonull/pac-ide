@@ -263,6 +263,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask("w", ["site", "browserify:watchify", "watch"]);
 
+  grunt.registerTask("webkit", ["build", "nodewebkit"]);
+
   grunt.registerTask("dist", ["site", "uglify"]);
 
 };

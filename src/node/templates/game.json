@@ -34,6 +34,9 @@
     "textures": { }
   },
 
+  "prefabs": [],
+  "scenes": [],
+
   "package": {
 
     "actions": { },
