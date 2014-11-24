@@ -2,8 +2,7 @@
 var template = require('./templates/layout.hbs'),
   Scenes = require('./Scenes'),
   SceneList = require('./SceneList'),
-  SceneTypes = require('../../models/SceneTypes'),
-  SceneTypesList = require('./SceneTypes');
+  SceneTypes = require('../../models/SceneTypes');
 
 module.exports = Backbone.Marionette.LayoutView.extend({
 
