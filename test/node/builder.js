@@ -5,6 +5,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 var builder = require('../../src/node/builder.js');
+var Game = require('../../src/node/Game.js');
 var testPath = './test/node/testPath';
 var structure = require('../../src/node/templates/structure.json');
 var tmplsPath = './src/node/templates';
@@ -39,11 +40,11 @@ describe('Builder', function(){
 
   });
 
-  describe('#initGame', function(){
+  describe('#create', function(){
 
     it('Must initialize a Game Directory', function(done){
 
-      builder.initGame(game, testPath, function(err){
+      builder.create(game, testPath, function(err, _game){
         expect(err).to.be.null;
 
         structure.dirs.forEach(function(dir){
@@ -69,7 +70,8 @@ describe('Builder', function(){
         expect(gamejson.settings.name).to.be.equal(game.name);
         expect(gamejson.settings.package).to.be.equal(game.package);
         expect(gamejson.settings.fps).to.be.equal(60);
-        expect(gamejson.package.actions).to.be.ok;
+
+        expect(_game).to.be.an.instanceof(Game);
 
         done();
       });
@@ -77,15 +79,16 @@ describe('Builder', function(){
     });
   });
 
-  describe('#getGameData', function(){
+  describe('#open', function(){
 
-    it('Must retrieve the Game JSON from a Directory', function(done){
+    it('Must retrieve a Game creating it from a Directory', function(done){
 
-      builder.getGameData(testPath, function(err, gameData){
+      builder.open(testPath, function(err, _game){
         expect(err).to.be.null;
 
-        expect(gameData.settings.name).to.be.equal(game.name);
-        expect(gameData.settings.package).to.be.equal(game.package);
+        expect(_game.settings.name).to.be.equal(game.name);
+        expect(_game.settings.package).to.be.equal(game.package);
+        expect(_game).to.be.an.instanceof(Game);
 
         done();
       });
@@ -114,20 +117,21 @@ describe('Builder', function(){
           }
         },
 
-        package: {
-          actions: {
-            "WalkTo": {
-              something: 5
-            }
+        scenes: [{
+          type: 'ExampleSceneA',
+          options: {
+            name: 'myscene',
+            size: { width: 800, height: 600 },
+            texture: 'school',
           }
-        }
+        }]
 
       };
 
       builder.saveGameData(newgame, testPath, false, function(err){
         expect(err).to.be.null;
 
-        builder.getGameData(testPath, function(err, gameData){
+        builder.open(testPath, function(err, gameData){
           expect(err).to.be.null;
 
           expect(gameData.settings.name).to.be.equal(newgame.settings.name);
@@ -137,12 +141,11 @@ describe('Builder', function(){
             .to.be.equal(newgame.components.renderer.options.backgroundColor);
 
           // check new values
-          expect(gameData.package.actions.WalkTo.something).to.be.equal(5);
+          expect(gameData.scenes.length).to.be.equal(1);
+          expect(gameData.scenes[0].options.size.width).to.be.equal(800);
 
           // check if other props are still there
           expect(gameData.settings.fps).to.be.equal(60);
-          expect(gameData.package).to.have.property('prefabs');
-
           expect(gameData.components.renderer.options)
             .to.have.property('layers');
 
@@ -162,7 +165,7 @@ describe('Builder', function(){
 
     it('Must replace the Game JSON of a Directory', function(done){
 
-      builder.getGameData(testPath, function(err, data){
+      builder.open(testPath, function(err, data){
 
         var newPackage = 'somewpackage';
         var lastPackage = data.package;
@@ -173,7 +176,7 @@ describe('Builder', function(){
         builder.saveGameData(data, testPath, true, function(err){
           expect(err).to.be.null;
 
-          builder.getGameData(testPath, function(err, gameData){
+          builder.open(testPath, function(err, gameData){
             expect(err).to.be.null;
 
             expect(gameData.settings.name).to.be.equal(data.settings.name);
@@ -200,6 +203,5 @@ describe('Builder', function(){
     });
 
   });
-
 
 });

@@ -6,9 +6,11 @@ var hogan = require('hogan.js');
 var _ = require('lodash');
 var structure = require('./templates/structure');
 
+var Game = require('./Game');
+
 module.exports = {
 
-  initGame: function(game, gamePath, done){
+  create: function(game, gamePath, done){
 
     structure.dirs.forEach(function(dir){
       var template = hogan.compile(gamePath + '/' + dir);
@@ -31,10 +33,11 @@ module.exports = {
       }
     });
 
-    done && done(null);
+    var game = new Game(gamePath, game);
+    done && done(null, game);
   },
 
-  getGameData: function(gamePath, done){
+  open: function(gamePath, done){
     var gameData;
 
     try {
@@ -43,7 +46,8 @@ module.exports = {
       return done && done(e);
     }
 
-    done && done(null, gameData);
+    var game = new Game(gamePath, gameData);
+    done && done(null, game);
   },
 
   saveGameData: function(data, gamePath, replace, done){

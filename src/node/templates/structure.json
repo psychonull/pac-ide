@@ -3,7 +3,7 @@
   "dirs": [
     "src/{{game.package}}/actions",
     "src/{{game.package}}/animations",
-    "src/{{game.package}}/gamestates",
+    "src/{{game.package}}/events",
     "src/{{game.package}}/prefabs",
     "src/{{game.package}}/scenes",
 
@@ -13,13 +13,22 @@
 
     "build/assets",
     "build/css",
-    "build/js"
+    "build/js",
+
+    "config"
   ],
 
   "files": [
     "game.json",
     "src/game.js",
-    "build/index.html"
+    "build/index.html",
+
+    "config/index.js",
+    "config/scenes.js",
+    "config/prefabs.js",
+    "config/events.js",
+    "config/actions.js",
+    "config/animations.js"
   ]
 
 }

@@ -38,7 +38,7 @@ module.exports = Backbone.Marionette.AppRouter.extend({
       return;
     }
 
-    Game.get(function(err, game){
+    Game.open(function(err, game){
 
       if (err){
         app.router.navigate('/', { trigger: true, replace: true });

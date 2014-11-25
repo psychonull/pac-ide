@@ -35,9 +35,9 @@
     <script src="./vendorwebkit.js"></script>
 
     <script>
-      try {
-        // in case is debuging on a browser
-        window.idenode = require('./src/node');
+      try { // in case is debuging on a browser
+        window.ide = window.ide || {};
+        window.ide.node = require('./src/node');
       } catch (e){
         console.error(e);
       }

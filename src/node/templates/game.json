@@ -35,16 +35,6 @@
   },
 
   "prefabs": [],
-  "scenes": [],
-
-  "package": {
-
-    "actions": { },
-    "animations": { },
-    "gamestates": { },
-    "prefabs": { },
-    "scenes": { }
-
-  }
+  "scenes": []
 
 }

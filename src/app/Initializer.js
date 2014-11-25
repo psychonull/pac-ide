@@ -6,7 +6,7 @@ module.exports = function(){
   ide.settings = require('./settings');
 
   if (ide.settings.browser){
-    window.idenode = require('./nodemock');
+    window.ide.node = require('./nodemock');
   }
 
   require('./app')();

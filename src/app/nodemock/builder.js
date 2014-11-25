@@ -3,12 +3,12 @@ var gameData;
 
 module.exports = {
 
-  initGame: function(game, gamePath, done){
+  create: function(game, gamePath, done){
     //done && done(new Error()); // to test error path
-    done && done();
+    done && done(null, gameData());
   },
 
-  getGameData: function(gamePath, done){
+  open: function(gamePath, done){
     // Fake it and return a pre defined game
     //done && done(new Error()); // to test error path
     done && done(null, gameData());
